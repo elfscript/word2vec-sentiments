@@ -1,3 +1,8 @@
+## separate TaggedLineSentence to an individual file
+1. python run.py to train doc2vec and save the model
+2. python run2.py to load the doc2vec model and train LogisticClassifier using the 
+docvecs from step 1
+
 
 # Sentiment Analysis using Doc2Vec
 

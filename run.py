@@ -58,12 +58,20 @@ sources = {'test-neg.txt':'TEST_NEG', 'test-pos.txt':'TEST_POS', 'train-neg.txt'
 
 sentences = LabeledLineSentence(sources)
 
-model = Doc2Vec(min_count=1, window=10, size=100, sample=1e-4, negative=5, workers=7)
+import multiprocessing
+cores = multiprocessing.cpu_count()
+print("number of cores", cores)
 
-model.build_vocab(sentences.to_array())
+fname= './imdb.d2v'
+#if file_exists(fname):
+if os.path.isfile(fname):
+   model=Doc2Vec.load(fname)
+else:
+   model = Doc2Vec(min_count=1, window=10, size=100, sample=1e-4, negative=5, workers=cores)
+   model.build_vocab(sentences.to_array())
 
-for epoch in range(50):
+for epoch in range(10):
     logger.info('Epoch %d' % epoch)
-    model.train(sentences.sentences_perm())
+    model.train(sentences.sentences_perm(), total_examples=model.corpus_count, epochs=model.iter)
 
-model.save('./imdb.d2v')
+model.save(fname)
