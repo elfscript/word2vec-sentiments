@@ -69,3 +69,15 @@ LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
           intercept_scaling=1, penalty='l2', random_state=None, tol=0.0001)
 
 print classifier.score(test_arrays, test_labels)
+
+arr=['i like you','i like you so much', 'he is like his father , both are stingy', 'who can win this game?', 'what a wonderful world', 
+'i like this movie  because  the real people portray themselves and their real life experience and do such a awesome job  the meaning of life while being angry at everyone especially the people who care for him most there s moments in the movie that will make you wanna cry because the family especially the father did such a good job']
+s="this is a test"
+x=s.split()
+print(x)
+
+test_arrays=[model.infer_vector(x.split()) for x in arr]
+test_labels=[0, 1,0, 0, 1,1]
+print classifier.score(test_arrays, test_labels)
+
+print(classifier.predict(test_arrays))
